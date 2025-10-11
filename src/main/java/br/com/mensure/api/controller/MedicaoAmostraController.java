@@ -41,5 +41,11 @@ public class MedicaoAmostraController {
         MedicaoAmostraResponseDTO response = service.update(id, request);
         return ResponseEntity.ok(response); // Retorna 200 OK com o objeto atualizado no corpo.
     }
+
+    @DeleteMapping("/{id}") // Mapeia para requisições (HTTP DELETE)
+    @ResponseStatus(HttpStatus.NO_CONTENT) // Define o status de resposta padrão para 204.
+    public void delete(@PathVariable Long id) {
+        service.delete(id); // Apenas chama o serviço e não retorna nada no corpo.
+    }
 }
 

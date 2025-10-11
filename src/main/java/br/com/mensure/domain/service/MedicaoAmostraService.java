@@ -114,4 +114,15 @@ public class MedicaoAmostraService {
         entity.setObservacoes(dto.getObservacoes());
         entity.setStatus(dto.getStatus());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        // Busca a medição para garantir que ela existe antes de tentar deletar.
+        // Se não existir, o .orElseThrow() cuidará de lançar nossa exceção 404.
+        MedicaoAmostra medicaoExistente = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Medição não encontrada para o ID: " + id));
+
+        // Se a medição foi encontrada, o repositório a deleta.
+        repository.delete(medicaoExistente);
+    }
 }
