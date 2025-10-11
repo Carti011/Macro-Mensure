@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Macro Mensure - Dashboard</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/styles.css}" />
+</head>
+<body>
+
+<div class="container">
+    <h1>Dashboard de Medições de Amostras</h1>
+    <p>Bem-vindo ao sistema de dimensionamento da DASA.</p>
+
+    <div th:if="${!listaDeMedicoes.isEmpty()}">
+        <h2>Registros Atuais</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Código da Amostra</th>
+                <th>Volume (cm³)</th>
+                <th>Dimensões (C x L x A cm)</th>
+                <th>Status</th>
+                <th>Data de Registro</th>
+                <th>Observações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="medicao : ${listaDeMedicoes}">
+                <td th:text="${medicao.id}">1</td>
+                <td th:text="${medicao.codigoAmostra}">PULMAO-001</td>
+                <td th:text="${medicao.volume}">150.75</td>
+                <td th:text="${medicao.comprimento} + ' x ' + ${medicao.largura} + ' x ' + ${medicao.altura}">10.5 x 5.2 x 3.0</td>
+                <td th:text="${medicao.status}">RECEBIDO</td>
+                <td th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
+                <td th:text="${medicao.observacoes}">Amostra recebida.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div th:if="${listaDeMedicoes.isEmpty()}">
+        <h2>Nenhum registro encontrado.</h2>
+        <p>Ainda não há medições cadastradas no sistema.</p>
+    </div>
+</div>
+
+</body>
+</html>
