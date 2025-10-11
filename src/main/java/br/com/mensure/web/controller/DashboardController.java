@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -39,5 +41,13 @@ public class DashboardController {
         model.addAttribute("statusOptions", StatusAmostra.values());
         // Retorna o nome do novo arquivo HTML que vamos criar.
         return "create-form";
+    }
+
+    @PostMapping("/salvar")
+    public String saveMedicao(@ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO) {
+        medicaoAmostraService.create(requestDTO);
+
+        // Redireciona o usuário de volta para a página principal do dashboard.
+        return "redirect:/dashboard";
     }
 }
