@@ -2,6 +2,7 @@ package br.com.mensure.domain.service;
 
 import br.com.mensure.api.dto.MedicaoAmostraRequestDTO;
 import br.com.mensure.api.dto.MedicaoAmostraResponseDTO;
+import br.com.mensure.api.exception.ResourceNotFoundException;
 import br.com.mensure.domain.entity.MedicaoAmostra;
 import br.com.mensure.domain.repository.MedicaoAmostraRepository;
 import jakarta.transaction.Transactional;
@@ -75,9 +76,7 @@ public class MedicaoAmostraService {
         // Busca uma entidade pelo ID. O findById retorna um Optional.
         // Se não encontrar, lança uma exceção.
         MedicaoAmostra medicao = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Medição não encontrada para o ID: " + id)); // Tratamento de "Não Encontrado"
-
-        // Converte a entidade encontrada para o DTO de resposta.
+                .orElseThrow(() -> new ResourceNotFoundException("Medição não encontrada para o ID: " + id));
         return toResponseDTO(medicao);
     }
 }

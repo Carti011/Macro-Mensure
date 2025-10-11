@@ -26,4 +26,17 @@ public class RestExceptionHandler {
         // Retorna a resposta com o status 400 e o corpo do erro.
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiErrorDTO> handleResourceNotFoundException(ResourceNotFoundException ex, HttpServletRequest request) {
+
+        ApiErrorDTO errorDetails = new ApiErrorDTO(
+                LocalDateTime.now(),
+                HttpStatus.NOT_FOUND.value(), // 404
+                "Not Found",
+                ex.getMessage(),
+                request.getRequestURI());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
+    }
 }
