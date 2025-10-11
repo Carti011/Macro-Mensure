@@ -26,6 +26,7 @@
                         <th>Status</th>
                         <th>Data de Registro</th>
                         <th>Observações</th>
+                        <th class="text-end">Ações</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -34,9 +35,14 @@
                         <td class="fw-bold" th:text="${medicao.codigoAmostra}">PULMAO-001</td>
                         <td th:text="${medicao.volume}">150.75</td>
                         <td th:text="${medicao.comprimento} + ' x ' + ${medicao.largura} + ' x ' + ${medicao.altura}">10.5 x 5.2 x 3.0</td>
-                        <td><span class="badge bg-secondary" th:text="${medicao.status}">RECEBIDO</span></td>
+                        <td><span class="badge bg-secondary" th:text="${medicao.status}">RECEBIDo</span></td>
                         <td th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
                         <td th:text="${medicao.observacoes}">Amostra recebida.</td>
+                        <td class="text-end">
+                            <form th:action="@{/dashboard/excluir/{id}(id=${medicao.id})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </td>
                     </tr>
                     </tbody>
                 </table>
