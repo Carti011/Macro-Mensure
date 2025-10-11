@@ -39,6 +39,8 @@
                         <td th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
                         <td th:text="${medicao.observacoes}">Amostra recebida.</td>
                         <td class="text-end">
+                            <a th:href="@{/dashboard/editar/{id}(id=${medicao.id})}" class="btn btn-warning btn-sm me-2">Editar</a>
+
                             <form th:action="@{/dashboard/excluir/{id}(id=${medicao.id})}" method="post" class="d-inline">
                                 <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
                             </form>

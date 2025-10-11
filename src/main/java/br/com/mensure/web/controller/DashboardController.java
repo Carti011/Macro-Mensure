@@ -55,4 +55,25 @@ public class DashboardController {
         return "redirect:/dashboard";
     }
 
+    @GetMapping("/editar/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        // Busca os dados existentes.
+        MedicaoAmostraResponseDTO medicaoDTO = medicaoAmostraService.findById(id);
+
+        // Adiciona os dados ao model para que o formulário seja preenchido.
+        model.addAttribute("medicao", medicaoDTO);
+        model.addAttribute("id", id); // Passa o ID separadamente para a action do form.
+
+        // Adiciona as opções de status, como no formulário de criação.
+        model.addAttribute("statusOptions", StatusAmostra.values());
+
+        // Retorna o nome do arquivo HTML do formulário de edição.
+        return "edit-form";
+    }
+
+    @PostMapping("/atualizar/{id}")
+    public String updateMedicao(@PathVariable Long id, @ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO) {
+        medicaoAmostraService.update(id, requestDTO);
+        return "redirect:/dashboard";
+    }
 }
