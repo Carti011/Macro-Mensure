@@ -38,7 +38,8 @@ public class MedicaoAmostra {
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal altura;
 
-    @Column(columnDefinition = "TEXT")
+    @Lob
+    @Column
     private String observacoes;
 
     @Enumerated(EnumType.STRING)
