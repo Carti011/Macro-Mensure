@@ -1,4 +1,4 @@
-package br.com.Mensure;
+package br.com.mensure;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
