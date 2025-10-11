@@ -35,5 +35,11 @@ public class MedicaoAmostraController {
         MedicaoAmostraResponseDTO response = service.findById(id);
         return ResponseEntity.ok(response);
     }
+
+    @PutMapping("/{id}") // Mapeia para requisições (HTTP PUT)
+    public ResponseEntity<MedicaoAmostraResponseDTO> update(@PathVariable Long id, @RequestBody @Valid MedicaoAmostraRequestDTO request) {
+        MedicaoAmostraResponseDTO response = service.update(id, request);
+        return ResponseEntity.ok(response); // Retorna 200 OK com o objeto atualizado no corpo.
+    }
 }
 

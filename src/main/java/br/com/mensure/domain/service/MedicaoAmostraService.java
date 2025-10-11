@@ -79,4 +79,39 @@ public class MedicaoAmostraService {
                 .orElseThrow(() -> new ResourceNotFoundException("Medição não encontrada para o ID: " + id));
         return toResponseDTO(medicao);
     }
+
+    @Transactional
+    public MedicaoAmostraResponseDTO update(Long id, MedicaoAmostraRequestDTO requestDTO) {
+        // Busca a medição existente ou lança uma ResourceNotFoundException.
+        MedicaoAmostra medicaoExistente = repository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Medição não encontrada para o ID: " + id));
+
+        // Garante que o código da amostra não seja alterado para um que já está em uso por OUTRA medição.
+        repository.findByCodigoAmostra(requestDTO.getCodigoAmostra())
+                .ifPresent(medicaoEncontrada -> {
+                    if (!medicaoEncontrada.getId().equals(id)) {
+                        throw new IllegalArgumentException("O código de amostra '" + requestDTO.getCodigoAmostra() + "' já está em uso por outra medição.");
+                    }
+                });
+
+        // Atualiza os campos da entidade existente com os dados do DTO.
+        updateEntityFromDTO(medicaoExistente, requestDTO);
+
+        // Salva a entidade atualizada. O JPA/Hibernate fará um UPDATE
+        MedicaoAmostra medicaoAtualizada = repository.save(medicaoExistente);
+
+        // Retorna o DTO de resposta com os dados atualizados.
+        return toResponseDTO(medicaoAtualizada);
+    }
+
+    // Metodo auxiliar para manter o código de atualização organizado
+    private void updateEntityFromDTO(MedicaoAmostra entity, MedicaoAmostraRequestDTO dto) {
+        entity.setCodigoAmostra(dto.getCodigoAmostra());
+        entity.setVolume(dto.getVolume());
+        entity.setComprimento(dto.getComprimento());
+        entity.setLargura(dto.getLargura());
+        entity.setAltura(dto.getAltura());
+        entity.setObservacoes(dto.getObservacoes());
+        entity.setStatus(dto.getStatus());
+    }
 }
