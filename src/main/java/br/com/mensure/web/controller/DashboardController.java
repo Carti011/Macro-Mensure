@@ -1,6 +1,8 @@
 package br.com.mensure.web.controller;
 
+import br.com.mensure.api.dto.MedicaoAmostraRequestDTO;
 import br.com.mensure.api.dto.MedicaoAmostraResponseDTO;
+import br.com.mensure.domain.enums.StatusAmostra;
 import br.com.mensure.domain.service.MedicaoAmostraService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,5 +29,15 @@ public class DashboardController {
 
         // Retorna o nome do arquivo HTML que deve ser renderizado.
         return "dashboard";
+    }
+
+    @GetMapping("/novo")
+    public String showCreateForm(Model model) {
+        // Cria um objeto DTO vazio para ser preenchido pelo formulário.
+        model.addAttribute("medicao", new MedicaoAmostraRequestDTO());
+        // Disponibiliza os valores do Enum para o <select> no HTML.
+        model.addAttribute("statusOptions", StatusAmostra.values());
+        // Retorna o nome do novo arquivo HTML que vamos criar.
+        return "create-form";
     }
 }
