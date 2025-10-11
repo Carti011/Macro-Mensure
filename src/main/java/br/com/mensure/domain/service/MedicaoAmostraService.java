@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MedicaoAmostraService {
 
@@ -57,5 +59,25 @@ public class MedicaoAmostraService {
         dto.setStatus(entity.getStatus());
         dto.setDataRegistro(entity.getDataRegistro());
         return dto;
+    }
+
+    public List<MedicaoAmostraResponseDTO> findAll() {
+        // Busca todas as entidades do banco.
+        List<MedicaoAmostra> medicoes = repository.findAll();
+
+        // Converte a lista de Entidades para uma lista de DTOs de Resposta.
+        return medicoes.stream()
+                .map(this::toResponseDTO) // Para cada item da lista, chama o metodo de conversão dto.
+                .toList(); // Coleta os resultados em uma nova lista.
+    }
+
+    public MedicaoAmostraResponseDTO findById(Long id) {
+        // Busca uma entidade pelo ID. O findById retorna um Optional.
+        // Se não encontrar, lança uma exceção.
+        MedicaoAmostra medicao = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Medição não encontrada para o ID: " + id)); // Tratamento de "Não Encontrado"
+
+        // Converte a entidade encontrada para o DTO de resposta.
+        return toResponseDTO(medicao);
     }
 }
