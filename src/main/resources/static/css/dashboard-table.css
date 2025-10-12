@@ -1,0 +1,59 @@
+.table-custom {
+    border-collapse: separate;
+    border-spacing: 0 1rem;
+}
+
+.table-custom thead th {
+    border: none;
+    color: #6c757d;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.table-custom tbody tr {
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.table-custom tbody tr:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+
+.table-custom td, .table-custom th {
+    padding: 1.25rem;
+    vertical-align: middle;
+}
+
+.table-custom td:first-child, .table-custom th:first-child {
+     border-top-left-radius: 0.5rem;
+     border-bottom-left-radius: 0.5rem;
+}
+
+.table-custom td:last-child, .table-custom th:last-child {
+     border-top-right-radius: 0.5rem;
+     border-bottom-right-radius: 0.5rem;
+}
+
+.codigo-amostra {
+    font-weight: 600;
+    color: #212529;
+}
+
+.status-badge {
+    font-weight: 500;
+    padding: 0.5em 0.9em;
+    font-size: 0.8rem;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 4rem;
+    background-color: #ffffff;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+}
