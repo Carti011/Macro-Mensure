@@ -31,13 +31,31 @@
         <div th:if="${!listaDeMedicoes.isEmpty()}" class="mt-4">
             <div class="table-responsive">
                 <table class="table table-borderless table-custom">
-                    <thead>
+                    <thead class="table-dark">
                     <tr>
-                        <th>Código da Amostra</th>
+                        <th>
+                            <a th:href="@{/dashboard(sort='codigoAmostra', dir=${sortField == 'codigoAmostra' ? reverseSortDir : 'asc'})}">
+                                Código da Amostra
+                                <i th:if="${sortField == 'codigoAmostra'}"
+                                   th:class="${sortDir == 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down'}"></i>
+                            </a>
+                        </th>
                         <th>Volume (cm³)</th>
                         <th>Dimensões (C x L x A)</th>
-                        <th>Status</th>
-                        <th>Data de Registro</th>
+                        <th>
+                            <a th:href="@{/dashboard(sort='status', dir=${sortField == 'status' ? reverseSortDir : 'asc'})}">
+                                Status
+                                <i th:if="${sortField == 'status'}"
+                                   th:class="${sortDir == 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down'}"></i>
+                            </a>
+                        </th>
+                        <th>
+                            <a th:href="@{/dashboard(sort='dataRegistro', dir=${sortField == 'dataRegistro' ? reverseSortDir : 'asc'})}">
+                                Data de Registro
+                                <i th:if="${sortField == 'dataRegistro'}"
+                                   th:class="${sortDir == 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down'}"></i>
+                            </a>
+                        </th>
                         <th class="text-end">Ações</th>
                     </tr>
                     </thead>

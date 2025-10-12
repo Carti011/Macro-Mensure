@@ -8,6 +8,7 @@ import br.com.mensure.domain.repository.MedicaoAmostraRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
@@ -62,14 +63,17 @@ public class MedicaoAmostraService {
         return dto;
     }
 
-    public List<MedicaoAmostraResponseDTO> findAll() {
-        // Busca todas as entidades do banco.
-        List<MedicaoAmostra> medicoes = repository.findAll();
+    public List<MedicaoAmostraResponseDTO> findAll(String sortField, String sortDir) {
+        Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.DESC.name()) ?
+                Sort.by(sortField).descending() :
+                Sort.by(sortField).ascending();
 
-        // Converte a lista de Entidades para uma lista de DTOs de Resposta.
+        // Busca todas as entidades do banco, aplicando a ordenação.
+        List<MedicaoAmostra> medicoes = repository.findAll(sort);
+
         return medicoes.stream()
-                .map(this::toResponseDTO) // Para cada item da lista, chama o metodo de conversão dto.
-                .toList(); // Coleta os resultados em uma nova lista.
+                .map(this::toResponseDTO)
+                .toList();
     }
 
     public MedicaoAmostraResponseDTO findById(Long id) {

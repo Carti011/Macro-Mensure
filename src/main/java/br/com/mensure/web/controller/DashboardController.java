@@ -20,14 +20,20 @@ public class DashboardController {
     private MedicaoAmostraService medicaoAmostraService;
 
     @GetMapping // Responde a requisições GET em http://localhost:8080/dashboard
-    public String showDashboard(Model model) {
-        // Busca a lista de medições usando o mesmo serviço da API.
-        List<MedicaoAmostraResponseDTO> medicoes = medicaoAmostraService.findAll();
+    public String showDashboard(Model model,
+                                // Captura o parâmetro 'sort' da URL. O valor padrão é 'id'.
+                                @RequestParam(defaultValue = "id") String sort,
+                                // Captura o parâmetro 'dir' da URL. O valor padrão é 'asc' (ascendente).
+                                @RequestParam(defaultValue = "asc") String dir) {
 
-        // Adiciona a lista de medições ao "Model".
+        List<MedicaoAmostraResponseDTO> medicoes = medicaoAmostraService.findAll(sort, dir);
+
         model.addAttribute("listaDeMedicoes", medicoes);
 
-        // Retorna o nome do arquivo HTML que deve ser renderizado.
+        model.addAttribute("sortField", sort);
+        model.addAttribute("sortDir", dir);
+        model.addAttribute("reverseSortDir", dir.equals("asc") ? "desc" : "asc");
+
         return "dashboard";
     }
 

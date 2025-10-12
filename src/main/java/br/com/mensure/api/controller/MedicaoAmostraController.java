@@ -24,10 +24,13 @@ public class MedicaoAmostraController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response); // 201 (Created).
     }
 
-    @GetMapping // Mapeia este metodo para requisições (HTTP GET).
-    public ResponseEntity<List<MedicaoAmostraResponseDTO>> findAll() {
-        List<MedicaoAmostraResponseDTO> response = service.findAll();
-        return ResponseEntity.ok(response); // Retorna a lista com o status 200 OK.
+    @GetMapping
+    public ResponseEntity<List<MedicaoAmostraResponseDTO>> findAll(
+            @RequestParam(name = "sort", defaultValue = "id") String sortField,
+            @RequestParam(name = "dir", defaultValue = "asc") String sortDir) {
+
+        List<MedicaoAmostraResponseDTO> response = service.findAll(sortField, sortDir);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}") // Mapeia para GET. ID sendo meu Path
