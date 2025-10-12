@@ -3,6 +3,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
 }
 
 .main-content {
@@ -10,12 +11,14 @@ body {
 }
 
 .main-header {
-    padding: 2rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #dee2e6;
 }
 
 .main-header h1 {
     font-size: 2.25rem;
-    font-weight: 700;
+    font-weight: 300; /* Fonte mais leve para um visual moderno */
+    color: #343a40;
 }
 
 .main-header p {
@@ -24,14 +27,14 @@ body {
 }
 
 .btn-primary {
-    background-color: #0d6efd;
-    border-color: #0d6efd;
+    background-color: #005A8C; /* Nosso azul corporativo */
+    border-color: #005A8C;
     transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
 }
 
 .btn-primary:hover {
-    background-color: #0b5ed7;
-    border-color: #0a58ca;
+    background-color: #004a75;
+    border-color: #00416a;
 }
 
 .btn-action {
@@ -41,5 +44,4 @@ body {
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    border: none;
 }

@@ -1,6 +1,6 @@
 .table-custom {
     border-collapse: separate;
-    border-spacing: 0 1rem;
+    border-spacing: 0 0.75rem;
 }
 
 .table-custom thead th {
@@ -10,22 +10,26 @@
     text-transform: uppercase;
     font-size: 0.8rem;
     letter-spacing: 0.5px;
+    padding-top: 1.1rem;    /* Mais espaço em cima */
+    padding-bottom: 1rem;  /* Um pouco menos espaço embaixo */
 }
 
 .table-custom tbody tr {
     background-color: #ffffff;
     border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
     transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .table-custom tbody tr:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.08);
 }
 
 .table-custom td, .table-custom th {
-    padding: 1.25rem;
+    /* padding horizontal (esquerda/direita) */
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
     vertical-align: middle;
 }
 
@@ -56,4 +60,5 @@
     background-color: #ffffff;
     border-radius: 0.5rem;
     margin-top: 2rem;
+    border: 1px dashed #dee2e6;
 }

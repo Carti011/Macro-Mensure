@@ -11,10 +11,16 @@
 <body>
 <section layout:fragment="content">
     <div class="container my-5">
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
         <div class="main-header d-flex justify-content-between align-items-center flex-wrap gap-3">
             <div>
-                <h1>Painel de Controle</h1>
-                <p class="mb-0">Gerencie as medições de amostras com facilidade.</p>
+                <h1>Painel de Medições</h1>
+                <p class="mb-0">Gerencie as amostras de patologia com facilidade.</p>
             </div>
             <a th:href="@{/dashboard/novo}" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
                 <i class="bi bi-plus-circle-fill"></i>
@@ -22,14 +28,14 @@
             </a>
         </div>
 
-        <div th:if="${!listaDeMedicoes.isEmpty()}">
+        <div th:if="${!listaDeMedicoes.isEmpty()}" class="mt-4">
             <div class="table-responsive">
                 <table class="table table-borderless table-custom">
                     <thead>
                     <tr>
                         <th>Código da Amostra</th>
                         <th>Volume (cm³)</th>
-                        <th>Dimensões (cm)</th>
+                        <th>Dimensões (C x L x A)</th>
                         <th>Status</th>
                         <th>Data de Registro</th>
                         <th class="text-end">Ações</th>
@@ -60,7 +66,8 @@
                                    title="Editar">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
-                                <form th:action="@{/dashboard/excluir/{id}(id=${medicao.id})}" method="post" class="d-inline">
+                                <form th:action="@{/dashboard/excluir/{id}(id=${medicao.id})}" method="post" class="d-inline"
+                                      onsubmit="return confirm('Você tem certeza que deseja excluir este registro?');">
                                     <button type="submit" class="btn btn-danger btn-action" title="Excluir">
                                         <i class="bi bi-trash3-fill"></i>
                                     </button>

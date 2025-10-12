@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -41,16 +42,19 @@ public class DashboardController {
     }
 
     @PostMapping("/salvar")
-    public String saveMedicao(@ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO) {
+    public String saveMedicao(@ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
         medicaoAmostraService.create(requestDTO);
-
+        // Adicione a "flash message" de sucesso
+        redirectAttributes.addFlashAttribute("successMessage", "Medição registrada com sucesso!");
         // Redireciona o usuário de volta para a página principal do dashboard.
         return "redirect:/dashboard";
     }
 
     @PostMapping("/excluir/{id}")
-    public String deleteMedicao(@PathVariable Long id) {
+    public String deleteMedicao(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         medicaoAmostraService.delete(id);
+        // Adicione a "flash message" de sucesso
+        redirectAttributes.addFlashAttribute("successMessage", "Registro excluído com sucesso!");
         // Redireciona de volta para o dashboard com a lista atualizada.
         return "redirect:/dashboard";
     }
@@ -72,8 +76,10 @@ public class DashboardController {
     }
 
     @PostMapping("/atualizar/{id}")
-    public String updateMedicao(@PathVariable Long id, @ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO) {
+    public String updateMedicao(@PathVariable Long id, @ModelAttribute("medicao") MedicaoAmostraRequestDTO requestDTO, RedirectAttributes redirectAttributes) {
         medicaoAmostraService.update(id, requestDTO);
+        // Adicione a "flash message" de sucesso
+        redirectAttributes.addFlashAttribute("successMessage", "Medição atualizada com sucesso!");
         return "redirect:/dashboard";
     }
 }
