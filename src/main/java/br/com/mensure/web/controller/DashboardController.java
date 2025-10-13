@@ -21,15 +21,11 @@ public class DashboardController {
 
     @GetMapping // Responde a requisições GET em http://localhost:8080/dashboard
     public String showDashboard(Model model,
-                                // Captura o parâmetro 'sort' da URL. O valor padrão é 'id'.
-                                @RequestParam(defaultValue = "id") String sort,
-                                // Captura o parâmetro 'dir' da URL. O valor padrão é 'asc' (ascendente).
-                                @RequestParam(defaultValue = "asc") String dir) {
+                                @RequestParam(defaultValue = "dataRegistro") String sort,
+                                @RequestParam(defaultValue = "desc") String dir) {
 
         List<MedicaoAmostraResponseDTO> medicoes = medicaoAmostraService.findAll(sort, dir);
-
         model.addAttribute("listaDeMedicoes", medicoes);
-
         model.addAttribute("sortField", sort);
         model.addAttribute("sortDir", dir);
         model.addAttribute("reverseSortDir", dir.equals("asc") ? "desc" : "asc");
