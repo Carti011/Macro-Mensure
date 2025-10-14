@@ -23,6 +23,14 @@ public class MedicaoAmostra {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY) // Define o lado "muitos" do relacionamento.
+    @JoinColumn(name = "paciente_id", nullable = false) // Especifica a coluna da chave estrangeira.
+    private Paciente paciente;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "medico_id") // A coluna da FK.
+    private Medico medico;
+
     @Column(nullable = false, unique = true, length = 50)
     private String codigoAmostra;
 
