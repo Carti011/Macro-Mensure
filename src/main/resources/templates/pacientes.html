@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+<head>
+    <title>Gerenciar Pacientes</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" th:href="@{/css/dashboard-table.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container my-5">
+        <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <span th:text="${successMessage}"></span>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+
+        <div class="main-header d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h1>Gerenciar Pacientes</h1>
+                <p class="mb-0">Adicione, edite ou remova pacientes do sistema.</p>
+            </div>
+            <a th:href="@{/pacientes/novo}" class="btn btn-primary btn-lg d-flex align-items-center gap-2">
+                <i class="bi bi-person-plus-fill"></i>
+                Novo Paciente
+            </a>
+        </div>
+
+        <div th:if="${!listaDePacientes.isEmpty()}" class="mt-4">
+            <div class="table-responsive">
+                <table class="table table-borderless table-custom">
+                    <thead>
+                    <tr>
+                        <th>Nome Completo</th>
+                        <th>CPF</th>
+                        <th>Data de Nascimento</th>
+                        <th>Gênero</th>
+                        <th class="text-end">Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="paciente : ${listaDePacientes}">
+                        <td>
+                            <div class="codigo-amostra" th:text="${paciente.nomeCompleto}"></div>
+                            <div class="small text-muted" th:text="'ID: ' + ${paciente.id}"></div>
+                        </td>
+                        <td th:text="${paciente.cpf}"></td>
+                        <td th:text="${#temporals.format(paciente.dataNascimento, 'dd/MM/yyyy')}"></td>
+                        <td th:text="${paciente.genero}"></td>
+                        <td class="text-end">
+                            <div class="d-flex justify-content-end gap-2">
+                                <a th:href="@{/pacientes/editar/{id}(id=${paciente.id})}" class="btn btn-warning btn-action" title="Editar">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <form th:action="@{/pacientes/excluir/{id}(id=${paciente.id})}" method="post" class="d-inline"
+                                      onsubmit="return confirm('Atenção: Excluir um paciente também excluirá todas as suas medições associadas. Deseja continuar?');">
+                                    <button type="submit" class="btn btn-danger btn-action" title="Excluir">
+                                        <i class="bi bi-trash3-fill"></i>
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div th:if="${listaDePacientes.isEmpty()}" class="empty-state">
+            <i class="bi bi-people-fill" style="font-size: 4rem; color: #6c757d;"></i>
+            <h3 class="mt-4">Nenhum paciente encontrado</h3>
+            <p class="text-muted">Clique em "Novo Paciente" para começar a cadastrar.</p>
+        </div>
+    </div>
+</section>
+</body>
+</html>
