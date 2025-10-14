@@ -38,4 +38,9 @@ public class MedicaoAmostraRequestDTO {
 
     @NotNull(message = "O status não pode ser nulo.")
     private StatusAmostra status;
+
+    @NotNull(message = "O paciente deve ser informado.")
+    private Long pacienteId;
+
+    private Long medicoId;
 }

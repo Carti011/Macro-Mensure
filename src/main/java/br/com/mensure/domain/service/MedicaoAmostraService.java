@@ -4,7 +4,11 @@ import br.com.mensure.api.dto.MedicaoAmostraRequestDTO;
 import br.com.mensure.api.dto.MedicaoAmostraResponseDTO;
 import br.com.mensure.api.exception.ResourceNotFoundException;
 import br.com.mensure.domain.entity.MedicaoAmostra;
+import br.com.mensure.domain.entity.Medico;
+import br.com.mensure.domain.entity.Paciente;
 import br.com.mensure.domain.repository.MedicaoAmostraRepository;
+import br.com.mensure.domain.repository.MedicoRepository;
+import br.com.mensure.domain.repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +21,12 @@ public class MedicaoAmostraService {
 
     @Autowired
     private MedicaoAmostraRepository repository;
+
+    @Autowired
+    private PacienteRepository pacienteRepository;
+
+    @Autowired
+    private MedicoRepository medicoRepository;
 
     @Transactional // Garante que o metodo execute como uma única transação no banco de dados.
     public MedicaoAmostraResponseDTO create(MedicaoAmostraRequestDTO requestDTO) {
@@ -38,7 +48,21 @@ public class MedicaoAmostraService {
 
     // Métodos de Mapeamento (Mappers)
     private MedicaoAmostra toEntity(MedicaoAmostraRequestDTO dto) {
+        // Busca a entidade Paciente pelo ID recebido no DTO.
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado para o ID: " + dto.getPacienteId()));
+
         MedicaoAmostra entity = new MedicaoAmostra();
+
+        // Associa o paciente encontrado à nova medição.
+        entity.setPaciente(paciente);
+
+        if (dto.getMedicoId() != null) {
+            Medico medico = medicoRepository.findById(dto.getMedicoId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Médico não encontrado para o ID: " + dto.getMedicoId()));
+            entity.setMedico(medico);
+        }
+
         entity.setCodigoAmostra(dto.getCodigoAmostra());
         entity.setVolume(dto.getVolume());
         entity.setComprimento(dto.getComprimento());
@@ -60,6 +84,18 @@ public class MedicaoAmostraService {
         dto.setObservacoes(entity.getObservacoes());
         dto.setStatus(entity.getStatus());
         dto.setDataRegistro(entity.getDataRegistro());
+
+        // Verifica se o paciente não é nulo antes de tentar pegar o nome
+        if (entity.getPaciente() != null) {
+            dto.setPacienteId(entity.getPaciente().getId());
+            dto.setPacienteNome(entity.getPaciente().getNomeCompleto());
+        }
+
+        // --- LÓGICA PARA O MÉDICO ---
+        if (entity.getMedico() != null) {
+            dto.setMedicoId(entity.getMedico().getId());
+            dto.setMedicoNome(entity.getMedico().getNomeCompleto());
+        }
         return dto;
     }
 
@@ -110,6 +146,21 @@ public class MedicaoAmostraService {
 
     // Metodo auxiliar para manter o código de atualização organizado
     private void updateEntityFromDTO(MedicaoAmostra entity, MedicaoAmostraRequestDTO dto) {
+        // Busca a nova entidade Paciente (caso o usuário tenha alterado no formulário).
+        Paciente paciente = pacienteRepository.findById(dto.getPacienteId())
+                .orElseThrow(() -> new ResourceNotFoundException("Paciente não encontrado para o ID: " + dto.getPacienteId()));
+
+        // Associa o novo paciente à medição existente.
+        entity.setPaciente(paciente);
+
+        if (dto.getMedicoId() != null) {
+            Medico medico = medicoRepository.findById(dto.getMedicoId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Médico não encontrado para o ID: " + dto.getMedicoId()));
+            entity.setMedico(medico);
+        } else {
+            entity.setMedico(null); // Permite desassociar um médico
+        }
+
         entity.setCodigoAmostra(dto.getCodigoAmostra());
         entity.setVolume(dto.getVolume());
         entity.setComprimento(dto.getComprimento());

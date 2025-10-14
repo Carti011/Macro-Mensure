@@ -20,4 +20,10 @@ public class MedicaoAmostraResponseDTO {
     private String observacoes;
     private StatusAmostra status;
     private LocalDateTime dataRegistro;
+
+    private Long pacienteId;
+    private String pacienteNome;
+
+    private Long medicoId;
+    private String medicoNome;
 }
