@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+<head>
+    <title>Detalhes da Medição</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" th:href="@{/css/detalhes-style.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container my-5">
+        <div class="main-header d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h1 th:text="'Detalhes: ' + ${medicao.codigoAmostra}">Detalhes da Amostra</h1>
+                <p class="mb-0" th:text="'Paciente: ' + ${medicao.pacienteNome}"></p>
+
+                <p class="mb-0"
+                   th:if="${medicao.medicoNome != null and !medicao.medicoNome.isEmpty()}"
+                   th:text="'Médico: ' + ${medicao.medicoNome}">
+                </p>
+
+                <p class="mb-0 text-muted"
+                   th:unless="${medicao.medicoNome != null and !medicao.medicoNome.isEmpty()}">
+                    Nenhum médico associado
+                </p>
+            </div>
+
+            <a th:href="@{/dashboard}" class="btn btn-outline-secondary d-flex align-items-center gap-2">
+                <i class="bi bi-arrow-left-circle"></i> Voltar para a Lista
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-box"></i> VOLUME
+                    </div>
+                    <div class="widget-value" th:text="${medicao.volume} + ' cm³'">1500 cm³</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-arrows-vertical"></i> COMPRIMENTO
+                    </div>
+                    <div class="widget-value" th:text="${medicao.comprimento} + ' cm'">21 cm</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-arrow-left-right"></i> LARGURA
+                    </div>
+                    <div class="widget-value" th:text="${medicao.largura} + ' cm'">12 cm</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-arrows-collapse"></i> ALTURA
+                    </div>
+                    <div class="widget-value" th:text="${medicao.altura} + ' cm'">8 cm</div>
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card status-widget" th:classappend="${medicao.status.name() == 'RECEBIDO' ? 'status-recebido' : medicao.status.name() == 'EM_ANALISE' ? 'status-analise' : 'status-finalizado'}">
+                    <div class="widget-label">
+                        <i class="bi bi-plus-circle"></i> STATUS
+                    </div>
+                    <div class="widget-value" th:text="${medicao.status}">Healthy</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-calendar-check"></i> DATA DE REGISTRO
+                    </div>
+                    <div class="widget-value" th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">2023-10-26</div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 col-lg-6">
+                <div class="widget-card">
+                    <div class="widget-label">
+                        <i class="bi bi-file-earmark-text"></i> OBSERVAÇÕES
+                    </div>
+                    <div class="widget-text" th:text="${medicao.observacoes != null and !medicao.observacoes.isEmpty() ? medicao.observacoes : 'Nenhuma observação.'}">Slight signs of fat, monitor.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

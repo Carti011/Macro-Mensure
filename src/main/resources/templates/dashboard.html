@@ -62,7 +62,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="medicao : ${listaDeMedicoes}">
+                    <tr class="clickable-row" th:each="medicao : ${listaDeMedicoes}" th:data-href="@{/dashboard/detalhes/{id}(id=${medicao.id})}">
                         <td>
                             <div class="codigo-amostra" th:text="${medicao.codigoAmostra}">PULMAO-001</div>
                             <div class="small text-muted" th:text="'ID: ' + ${medicao.id}">ID: 1</div>
@@ -108,6 +108,28 @@
             <p class="text-muted">Clique em "Nova Medição" para começar a cadastrar as amostras.</p>
         </div>
     </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const rows = document.querySelectorAll(".clickable-row");
+
+            rows.forEach(row => {
+                row.style.cursor = 'pointer'; // Muda o cursor para indicar que é clicável
+                row.addEventListener("click", (event) => {
+                    // Impede a navegação se o clique foi em um botão de ação ou formulário
+                    if (event.target.closest('.btn-action, form')) {
+                        return;
+                    }
+
+                    // Pega a URL do atributo data-href e navega para a página de detalhes
+                    const url = row.getAttribute("data-href");
+                    if (url) {
+                        window.location.href = url;
+                    }
+                });
+            });
+        });
+    </script>
 </section>
 </body>
 </html>

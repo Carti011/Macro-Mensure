@@ -81,4 +81,12 @@ public class DashboardController {
         redirectAttributes.addFlashAttribute("successMessage", "Medição atualizada com sucesso!");
         return "redirect:/dashboard";
     }
+
+    @GetMapping("/detalhes/{id}")
+    public String showDetalhesMedicao(@PathVariable Long id, Model model) {
+        MedicaoAmostraResponseDTO medicaoDTO = medicaoAmostraService.findById(id);
+        model.addAttribute("medicao", medicaoDTO);
+
+        return "detalhes-medicao";
+    }
 }
