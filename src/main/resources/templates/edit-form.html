@@ -27,6 +27,24 @@
                                 <label for="codigoAmostra" class="form-label">Código da Amostra</label>
                                 <input type="text" id="codigoAmostra" class="form-control form-control-lg" th:field="*{codigoAmostra}" required>
                             </div>
+                            <div class="mb-4">
+                                <label for="paciente" class="form-label">Paciente</label>
+                                <select id="paciente" class="form-select form-select-lg" th:field="*{pacienteId}" required>
+                                    <option value="">Selecione um paciente</option>
+                                    <option th:each="paciente : ${listaDePacientes}"
+                                            th:value="${paciente.id}"
+                                            th:text="${paciente.nomeCompleto} + ' - CPF: ' + ${paciente.cpf}"></option>
+                                </select>
+                            </div>
+                            <div class="mb-4">
+                                <label for="medico" class="form-label">Médico Responsável (Opcional)</label>
+                                <select id="medico" class="form-select form-select-lg" th:field="*{medicoId}">
+                                    <option value="">Nenhum médico associado</option>
+                                    <option th:each="medico : ${listaDeMedicos}"
+                                            th:value="${medico.id}"
+                                            th:text="${medico.nomeCompleto} + ' - CRM: ' + ${medico.crm}"></option>
+                                </select>
+                            </div>
                             <div class="row">
                                 <div class="col-md-6 mb-4">
                                     <label for="comprimento" class="form-label">Comprimento (cm)</label>

@@ -40,6 +40,8 @@
                                    th:class="${sortDir == 'asc' ? 'bi bi-arrow-up' : 'bi bi-arrow-down'}"></i>
                             </a>
                         </th>
+                        <th>Paciente</th>
+                        <th>Médico Responsável</th>
                         <th>Volume (cm³)</th>
                         <th>Dimensões (C x L x A)</th>
                         <th>
@@ -65,16 +67,18 @@
                             <div class="codigo-amostra" th:text="${medicao.codigoAmostra}">PULMAO-001</div>
                             <div class="small text-muted" th:text="'ID: ' + ${medicao.id}">ID: 1</div>
                         </td>
+                        <td th:text="${medicao.pacienteNome}">Nome do Paciente</td>
+                        <td th:text="${medicao.medicoNome}">Nome do Médico</td>
                         <td th:text="${medicao.volume}">150.75</td>
                         <td th:text="${medicao.comprimento} + ' x ' + ${medicao.largura} + ' x ' + ${medicao.altura}">10.5 x 5.2 x 3.0</td>
                         <td>
-                        <span class="badge rounded-pill status-badge"
-                              th:text="${medicao.status}"
-                              th:classappend="${medicao.status.name() == 'RECEBIDO' ? 'text-bg-secondary' :
-                                                 medicao.status.name() == 'EM_ANALISE' ? 'text-bg-primary' :
-                                                 'text-bg-success'}">
-                            RECEBIDO
-                        </span>
+                            <span class="badge rounded-pill status-badge"
+                                  th:text="${medicao.status}"
+                                  th:classappend="${medicao.status.name() == 'RECEBIDO' ? 'text-bg-secondary' :
+                                                     medicao.status.name() == 'EM_ANALISE' ? 'text-bg-primary' :
+                                                     'text-bg-success'}">
+                                RECEBIDO
+                            </span>
                         </td>
                         <td th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
                         <td class="text-end">
