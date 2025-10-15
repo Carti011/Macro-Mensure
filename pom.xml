@@ -9,10 +9,9 @@
         <version>3.3.0</version>
         <relativePath/> </parent>
 
-    <groupId>br.com.dasa</groupId>
-    <artifactId>macro-mensure</artifactId>
+    <artifactId>macro-measure</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>macro-mensure</name>
+    <name>macro-measure</name>
     <description>Aplicação para dimensionamento de amostras de patologia para a DASA</description>
 
     <properties>

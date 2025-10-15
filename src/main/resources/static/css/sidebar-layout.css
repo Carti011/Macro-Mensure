@@ -1,0 +1,76 @@
+/* Estilos para o novo layout com sidebar */
+body {
+    display: flex;
+}
+
+.sidebar {
+    width: 280px; /* Largura da sidebar */
+    position: fixed; /* Fixa na tela */
+    top: 0;
+    left: 0;
+    height: 100vh; /* Ocupa a altura inteira */
+    padding: 1.5rem;
+    background-color: #212529; /* Cor escura da antiga navbar */
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-wrapper {
+    margin-left: 280px; /* Empurra o conteúdo principal para a direita */
+    width: calc(100% - 280px); /* Ocupa o resto do espaço */
+    padding: 2rem 3rem; /* Espaçamento interno para o conteúdo */
+    flex-grow: 1;
+}
+
+/* Estilização da Marca/Logo na Sidebar */
+.sidebar-brand {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #495057;
+    color: #fff;
+    text-decoration: none;
+}
+.sidebar-brand:hover {
+    color: #f8f9fa;
+}
+
+/* Estilização dos Itens de Navegação */
+.sidebar-nav {
+    list-style: none;
+    padding-left: 0;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    color: #adb5bd;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.sidebar-nav .nav-link:hover {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.sidebar-nav .nav-link.active {
+    background-color: #005A8C; /* Cor primária do projeto */
+    color: #fff;
+    font-weight: 500;
+}
+
+.sidebar-footer {
+    margin-top: auto; /* Empurra o rodapé para o final da sidebar */
+    font-size: 0.8rem;
+    color: #6c757d;
+}

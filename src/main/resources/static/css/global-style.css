@@ -1,10 +1,4 @@
-body {
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
+g
 
 .main-content {
     flex: 1;

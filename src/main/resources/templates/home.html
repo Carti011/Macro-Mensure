@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+<head>
+    <title>Bem-vindo ao Macro Measure</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container my-5 text-center">
+        <i class="bi bi-rulers" style="font-size: 5rem; color: #005A8C;"></i>
+        <h1 class="mt-4">Bem-vindo ao Macro Measure</h1>
+        <p class="lead text-muted">Sua plataforma para dimensionamento de amostras patológicas.</p>
+        <hr class="my-4">
+        <p>Este é o espaço para a apresentação do projeto. Podemos adicionar aqui a descrição, objetivos e tecnologias utilizadas.</p>
+        <a class="btn btn-primary btn-lg mt-3" th:href="@{/dashboard}" role="button">
+            Ir para Amostras
+            <i class="bi bi-arrow-right-circle-fill"></i>
+        </a>
+    </div>
+</section>
+</body>
+</html>

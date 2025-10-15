@@ -4,45 +4,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Macro Mensure</title>
+    <title layout:title-pattern="$CONTENT_TITLE | $LAYOUT_TITLE">Macro Measure</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" th:href="@{/css/sidebar-layout.css}">
     <link rel="stylesheet" th:href="@{/css/global-style.css}">
+
     <th:block layout:fragment="styles"></th:block>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand d-flex align-items-center gap-2" th:href="@{/dashboard}">
-            <i class="bi bi-rulers"></i>
-            <strong>Macro Mensure</strong>
-        </a>
-        <div class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/dashboard}">Medições</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/pacientes}">Pacientes</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/medicos}">Médicos</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="sidebar">
+    <a class="sidebar-brand d-flex align-items-center gap-2" th:href="@{/}">
+        <i class="bi bi-rulers"></i>
+        <strong>Macro Measure</strong>
+    </a>
 
-<main class="main-content" layout:fragment="content">
-</main>
+    <ul class="sidebar-nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/dashboard}" th:classappend="${activePage == 'amostras' ? 'active' : ''}">
+                <i class="bi bi-grid-1x2-fill"></i>
+                Amostras
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/pacientes}" th:classappend="${activePage == 'pacientes' ? 'active' : ''}">
+                <i class="bi bi-people-fill"></i>
+                Pacientes
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/medicos}" th:classappend="${activePage == 'medicos' ? 'active' : ''}">
+                <i class="bi bi-person-badge"></i>
+                Médicos
+            </a>
+        </li>
+    </ul>
 
-<footer class="footer mt-auto py-3 bg-light">
-    <div class="container text-center">
-        <span class="text-muted">© 2025 DASA | Macro Mensure. Todos os direitos reservados.</span>
+    <div class="sidebar-footer">
+        © 2025 DASA | Macro Measure
     </div>
-</footer>
+</div>
+
+<div class="main-content-wrapper">
+    <main layout:fragment="content">
+    </main>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
