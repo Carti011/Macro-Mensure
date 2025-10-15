@@ -4,20 +4,36 @@
       layout:decorate="~{layout/main-layout}">
 <head>
     <title>Bem-vindo ao Macro Measure</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" th:href="@{/css/home-style.css}">
+    </th:block>
 </head>
 <body>
 <section layout:fragment="content">
+
     <div class="container my-5 text-center">
         <i class="bi bi-rulers" style="font-size: 5rem; color: #005A8C;"></i>
         <h1 class="mt-4">Bem-vindo ao Macro Measure</h1>
         <p class="lead text-muted">Sua plataforma para dimensionamento de amostras patológicas.</p>
         <hr class="my-4">
-        <p>Este é o espaço para a apresentação do projeto. Podemos adicionar aqui a descrição, objetivos e tecnologias utilizadas.</p>
-        <a class="btn btn-primary btn-lg mt-3" th:href="@{/dashboard}" role="button">
+    </div>
+
+    <div class="container text-center mt-5 mb-5">
+        <a class="btn btn-primary btn-lg" th:href="@{/dashboard}" role="button">
             Ir para Amostras
             <i class="bi bi-arrow-right-circle-fill"></i>
         </a>
     </div>
+
+    <div class="canva-presentation-container">
+        <iframe loading="lazy"
+                style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; border: none; padding: 0;margin: 0;"
+                src="https://www.canva.com/design/DAG131Rw1Xs/yH28RJoDQMkK9xKGcrnTTw/view?embed"
+                allowfullscreen="allowfullscreen"
+                allow="fullscreen">
+        </iframe>
+    </div>
+
 </section>
 </body>
 </html>

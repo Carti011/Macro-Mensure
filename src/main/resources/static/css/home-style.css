@@ -1,0 +1,12 @@
+
+.canva-presentation-container {
+    position: relative;
+    width: 100%;
+    /* Truque para manter a proporção de tela (16:9) */
+    padding-top: 56.25%;
+    overflow: hidden;
+    background: #f8f9fa; /* Cor de fundo enquanto carrega */
+    border-radius: 0.85rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
+
