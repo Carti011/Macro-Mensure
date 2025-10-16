@@ -59,7 +59,9 @@ public class MedicoService {
     public void delete(Long id) {
         Medico medicoExistente = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Médico não encontrado para o ID: " + id));
-
+        if (!medicoExistente.getMedicoes().isEmpty()) {
+            throw new IllegalArgumentException("Este médico não pode ser excluído pois possui amostras associadas a ele.");
+        }
         repository.delete(medicoExistente);
     }
 

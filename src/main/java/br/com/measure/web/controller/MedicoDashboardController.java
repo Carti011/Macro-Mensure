@@ -52,8 +52,12 @@ public class MedicoDashboardController {
 
     @PostMapping("/excluir/{id}")
     public String deleteMedico(@PathVariable Long id, RedirectAttributes redirectAttributes) {
-        medicoService.delete(id);
-        redirectAttributes.addFlashAttribute("successMessage", "Médico excluído com sucesso!");
+        try {
+            medicoService.delete(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Registro excluído com sucesso!");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/medicos";
     }
 
