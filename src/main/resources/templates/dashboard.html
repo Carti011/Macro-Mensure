@@ -61,17 +61,24 @@
                         <th class="text-end">Ações</th>
                     </tr>
                     </thead>
+
                     <tbody>
                     <tr class="clickable-row" th:each="medicao : ${listaDeMedicoes}" th:data-href="@{/dashboard/detalhes/{id}(id=${medicao.id})}">
-                        <td>
+
+                        <td data-label="Código da Amostra">
                             <div class="codigo-amostra" th:text="${medicao.codigoAmostra}">PULMAO-001</div>
                             <div class="small text-muted" th:text="'ID: ' + ${medicao.id}">ID: 1</div>
                         </td>
-                        <td th:text="${medicao.pacienteNome}">Nome do Paciente</td>
-                        <td th:text="${medicao.medicoNome}">Nome do Médico</td>
-                        <td th:text="${medicao.volume}">150.75</td>
-                        <td th:text="${medicao.comprimento} + ' x ' + ${medicao.largura} + ' x ' + ${medicao.altura}">10.5 x 5.2 x 3.0</td>
-                        <td>
+
+                        <td data-label="Paciente" th:text="${medicao.pacienteNome}">Nome do Paciente</td>
+
+                        <td data-label="Médico Responsável" th:text="${medicao.medicoNome}">Nome do Médico</td>
+
+                        <td data-label="Volume (cm³)" th:text="${medicao.volume}">150.75</td>
+
+                        <td data-label="Dimensões (C x L x A)" th:text="${medicao.comprimento} + ' x ' + ${medicao.largura} + ' x ' + ${medicao.altura}">10.5 x 5.2 x 3.0</td>
+
+                        <td data-label="Status">
                             <span class="badge rounded-pill status-badge"
                                   th:text="${medicao.status}"
                                   th:classappend="${medicao.status.name() == 'RECEBIDO' ? 'text-bg-secondary' :
@@ -80,8 +87,10 @@
                                 RECEBIDO
                             </span>
                         </td>
-                        <td th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
-                        <td class="text-end">
+
+                        <td data-label="Data de Registro" th:text="${#temporals.format(medicao.dataRegistro, 'dd/MM/yyyy HH:mm')}">11/10/2025 14:00</td>
+
+                        <td class="text-end" data-label="Ações">
                             <div class="d-flex justify-content-end gap-2">
                                 <a th:href="@{/dashboard/editar/{id}(id=${medicao.id})}"
                                    class="btn btn-warning btn-action"

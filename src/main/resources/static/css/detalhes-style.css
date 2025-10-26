@@ -35,6 +35,8 @@
     font-weight: 300;
     color: #3d526e;
     line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word; /* Suporte legado */
 }
 
 .widget-text {
@@ -53,3 +55,34 @@
 .status-recebido { background-color: #8696a7; }
 .status-analise { background-color: #4b8fde; }
 .status-finalizado { background-color: #5cb85c; }
+
+/* =============================================== */
+/* ======== REFINAMENTOS RESPONSIVOS (WIDGETS) ===== */
+/* =============================================== */
+
+/* Telas de Desktop/Tablet (entre 768px e 1200px)
+ * Onde as colunas 'col-lg-3' estão ativas, mas ficam estreitas.
+ * (Cobre o seu "1221px até 1011px" e "954px até 771px")
+ */
+@media (max-width: 1199.98px) and (min-width: 768px) {
+    .widget-value {
+        /* Reduz um pouco a fonte de 2.25rem para 1.9rem */
+        font-size: 1.9rem;
+    }
+}
+
+/* Telas de Celular Pequenas (menor que 576px)
+ * Onde as colunas 'col-sm-6' ficam muito estreitas.
+ * (Cobre o seu "579px")
+ */
+@media (max-width: 575.98px) {
+    .widget-value {
+        /* Reduz mais a fonte para caber */
+        font-size: 1.8rem;
+    }
+
+    /* Também reduz o padding do card para dar mais espaço */
+    .widget-card {
+        padding: 1.25rem;
+    }
+}

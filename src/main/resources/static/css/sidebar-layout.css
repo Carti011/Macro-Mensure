@@ -27,14 +27,23 @@ body {
 .sidebar-brand {
     font-size: 1.5rem;
     font-weight: 600;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #495057;
     color: #fff;
     text-decoration: none;
 }
 .sidebar-brand:hover {
     color: #f8f9fa;
+}
+
+.sidebar-header {
+    /* Pegamos os estilos que estavam no .sidebar-brand */
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #495057;
+
+    /* Flex para alinhar a marca e o botão "X" */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Estilização dos Itens de Navegação */
@@ -73,4 +82,55 @@ body {
     margin-top: auto; /* Empurra o rodapé para o final da sidebar */
     font-size: 0.8rem;
     color: #6c757d;
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo escuro semi-transparente */
+    z-index: 1049; /* Logo abaixo da sidebar (que tem 1050) */
+
+    /* Começa escondido */
+    opacity: 0;
+    visibility: hidden;
+
+    transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+.sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* =============================================== */
+/* ============= ESTILOS RESPONSIVOS ============= */
+/* (Telas menores que 992px)                   */
+/* =============================================== */
+@media (max-width: 991.98px) {
+
+    /* Esconde a sidebar original fora da tela */
+    .sidebar {
+        /* Começa escondida à esquerda */
+        left: -280px;
+        /* Adiciona uma transição suave */
+        transition: left 0.3s ease-in-out;
+        /* Garante que fique acima de tudo (overlay) */
+        z-index: 1050;
+    }
+
+    /* Classe 'show' que o JS vai adicionar */
+    .sidebar.show {
+        left: 0;
+    }
+
+    /* Faz o conteúdo principal ocupar 100% da largura */
+    .main-content-wrapper {
+        margin-left: 0;
+        width: 100%;
+        /* Adiciona padding no topo para não ficar atrás da navbar mobile */
+        padding-top: 5rem; /* (Altura da navbar + espaço) */
+    }
 }

@@ -77,3 +77,93 @@
     --bs-table-bg: #ffffff;
     --bs-table-color: white;
 }
+
+/* =============================================== */
+/* ========= RESPONSIVIDADE DA TABELA ========== */
+/* (Telas menores que 768px)                   */
+/* =============================================== */
+@media (max-width: 767.98px) {
+
+    /* Esconde o cabeçalho original da tabela */
+    .table-custom thead {
+        display: none;
+    }
+
+    /* Faz a linha (tr) parecer um card */
+    .table-custom tr {
+        display: block; /* Faz a linha ocupar 100% da largura */
+        margin-bottom: 1rem;
+        border-radius: 0.5rem;
+        padding: 1rem;
+        /* A sombra e o fundo já vêm das suas classes .table-custom */
+    }
+
+    /* Faz a célula (td) ocupar 100% da largura */
+    .table-custom td {
+        display: block;
+        width: 100%;
+        padding-left: 50%; /* Deixa espaço à esquerda para o rótulo */
+        position: relative; /* Contexto para o pseudo-elemento */
+        text-align: right; /* Alinha o valor à direita */
+        padding-bottom: 0.75rem;
+        padding-top: 0.75rem;
+    }
+
+    /* Adiciona o rótulo (data-label) antes do conteúdo */
+    .table-custom td::before {
+        /* Pega o texto do atributo 'data-label' */
+        content: attr(data-label);
+
+        /* Posicionamento do rótulo à esquerda */
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: calc(50% - 1.5rem); /* Metade do espaço menos o padding */
+
+        /* Estilização do rótulo */
+        text-align: left;
+        font-weight: 600;
+        color: #6c757d; /* Um cinza sutil */
+        text-transform: uppercase;
+        font-size: 0.75rem;
+    }
+
+    /* Ajustes finos para células específicas */
+
+    /* Código da Amostra (primeiro item) - Dar mais destaque */
+    .table-custom td:first-child {
+        padding-top: 0;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #eee; /* Separador */
+    }
+    .table-custom td:first-child::before {
+        display: none; /* Não precisa de rótulo 'Código Amostra' */
+    }
+    .table-custom td:first-child .codigo-amostra {
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    /* Status (badge) - Centralizar */
+    .table-custom td[data-label="Status"] {
+        text-align: left; /* O badge já se alinha */
+    }
+    .table-custom td[data-label="Status"]::before {
+        top: 1.1rem; /* Ajusta alinhamento vertical */
+    }
+
+    /* Ações (último item) - Centralizar os botões */
+    .table-custom td:last-child {
+        padding-left: 1rem; /* Reseta o padding */
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 1px solid #eee; /* Separador */
+    }
+    .table-custom td:last-child::before {
+        display: none; /* Não precisa de rótulo 'Ações' */
+    }
+    .table-custom td:last-child .d-flex {
+        justify-content: center !important;
+    }
+}
