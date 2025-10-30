@@ -87,7 +87,6 @@ O formulário para registrar uma nova medição, com campos para associar pacien
 
 #### 5. Assistente de IA (Chatbot)
 A interface de chat onde os usuários podem interagir com o Agente LangChain4j para fazer consultas em linguagem natural.
-*(Sugestão: Adicione aqui um screenshot da sua tela `chatbot.html` em funcionamento!)*
 ![Assistente de IA](src/main/resources/static/img/Chat-Bot.png)
 
 ---
