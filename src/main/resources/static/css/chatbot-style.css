@@ -1,0 +1,141 @@
+.chat-container {
+    max-width: 100%; /* Ou a largura que preferir */
+    margin: 0 auto;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+    overflow: hidden; /* Garante que o footer fique dentro */
+}
+
+.chat-box {
+    height: 60vh; /* Altura da área de mensagens */
+    overflow-y: auto; /* Adiciona barra de rolagem */
+    padding: 1.5rem;
+    background-color: #f8f9fa; /* Fundo levemente cinza */
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem; /* Espaço entre mensagens */
+}
+
+.message {
+    padding: 0.75rem 1.25rem;
+    border-radius: 1.25rem; /* Bordas arredondadas */
+    max-width: 75%; /* Largura máxima da mensagem */
+    word-wrap: break-word; /* Quebra palavras longas */
+    line-height: 1.5;
+}
+
+.user-message {
+    background-color: #0d6efd; /* Azul do Bootstrap */
+    color: white;
+    align-self: flex-end; /* Alinha à direita */
+    border-bottom-right-radius: 0.25rem; /* Canto reto */
+}
+
+.bot-message {
+    background-color: #e9ecef; /* Cinza claro */
+    color: #212529; /* Preto */
+    align-self: flex-start; /* Alinha à esquerda */
+    border-bottom-left-radius: 0.25rem; /* Canto reto */
+}
+
+.chat-input-area {
+    background-color: #ffffff;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #dee2e6;
+}
+
+#chatForm .btn {
+    min-width: 50px; /* Largura mínima para o botão */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.bot-html-message {
+    padding: 0;
+    background-color: #ffffff; /* Fundo branco para a tabela se destacar */
+    /* Permite a tabela ser mais larga que o balão de chat normal */
+    max-width: 95%;
+    width: 100%; /* Ocupa o espaço disponível no container */
+    overflow-x: auto;
+}
+
+.chat-table {
+    margin: 0; /* Remove margem da tabela bootstrap */
+    border-radius: 1.25rem;
+    overflow: hidden; /* Garante que os cantos da tabela sejam arredondados */
+}
+
+.chat-table th {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    background-color: #f8f9fa; /* Um cinza bem claro para o header */
+    color: #343a40;
+    padding: 0.75rem;
+    white-space: nowrap;
+}
+
+.chat-table td {
+    font-size: 0.85rem;
+    vertical-align: middle;
+    padding: 0.75rem;
+    white-space: nowrap; /* Impede quebra de linha */
+}
+
+/* Adiciona um 'title' (tooltip) para dados truncados */
+.chat-table td span[title] {
+    cursor: help;
+    border-bottom: 1px dashed #6c757d;
+}
+
+/* Estilizando o conteúdo de Markdown renderizado pelo bot */
+.bot-message {
+    /* ... (estilos existentes) ... */
+    line-height: 1.6; /* Melhor espaçamento de linha */
+}
+
+/* Estiliza a linha horizontal (---) como um separador de "card" */
+.bot-message hr {
+    border: 0;
+    border-top: 1px dashed #ced4da; /* Linha tracejada sutil */
+    margin: 1.25rem 0; /* Mais espaço entre os cards */
+}
+
+/* Remove a primeira linha horizontal se for o primeiro elemento */
+.bot-message hr:first-child {
+    display: none;
+}
+
+/* Remove a última linha horizontal se for o último elemento */
+ .bot-message hr:last-child {
+    display: none;
+}
+
+/* Estiliza o texto em negrito (**) */
+.bot-message strong {
+    color: #343a40; /* Um pouco mais escuro para destaque */
+    margin-right: 0.5em; /* Espaço entre o "Amostra:" e o valor */
+}
+
+/* Estiliza as quebras de linha (<br>) */
+.bot-message p {
+    margin-bottom: 0.5rem; /* Espaço entre linhas (ex: Amostra, Paciente) */
+}
+
+/* * NORMALIZAÇÃO DE FONTES DE MARKDOWN:
+ * Força cabeçalhos (h1-h6) que a IA possa gerar
+ * a terem o mesmo tamanho e peso de fonte do texto normal do bot.
+*/
+.bot-message h1,
+.bot-message h2,
+.bot-message h3,
+.bot-message h4,
+.bot-message h5,
+.bot-message h6 {
+    font-size: 1em; /* 1em = usa o tamanho da fonte do .bot-message */
+    font-weight: 600; /* Um leve negrito, ou 'normal' se preferir */
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+}

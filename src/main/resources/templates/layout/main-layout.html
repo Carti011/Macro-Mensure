@@ -61,6 +61,11 @@
                 Médicos
             </a>
         </li>
+        <li class="nav-item">
+            <a class="nav-link" th:href="@{/chatbot}" th:classappend="${activePage == 'chatbot' ? 'active' : ''}">
+                <i class="bi bi-robot"></i> Assistente IA
+            </a>
+        </li>
     </ul>
 
     <div class="sidebar-footer">
@@ -79,8 +84,8 @@
     document.addEventListener("DOMContentLoaded", function() {
         const sidebar = document.querySelector(".sidebar");
         const sidebarToggler = document.querySelector("#sidebarToggler");
-        const sidebarCloseButton = document.querySelector("#sidebarCloseButton"); // 1. Seleciona o botão "X"
-        const sidebarOverlay = document.querySelector("#sidebarOverlay");     // 2. Seleciona o overlay
+        const sidebarCloseButton = document.querySelector("#sidebarCloseButton"); // Seleciona o botão "X"
+        const sidebarOverlay = document.querySelector("#sidebarOverlay");     // Seleciona o overlay
 
         // Função para ABRIR o menu
         function openSidebar() {

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/main-layout}">
+<head>
+    <title>Chatbot Macro Measure</title>
+    <th:block layout:fragment="styles">
+        <link rel="stylesheet" th:href="@{/css/chatbot-style.css}">
+    </th:block>
+</head>
+<body>
+<section layout:fragment="content">
+    <div class="container my-5">
+        <div class="main-header mb-4">
+            <h1><i class="bi bi-robot me-2"></i>Assistente Macro Measure</h1>
+            <p class="mb-0">Pergunte sobre medições, pacientes ou médicos.</p>
+        </div>
+
+        <div class="chat-container card">
+            <div class="card-body chat-box" id="chatBox">
+            </div>
+
+            <div class="card-footer chat-input-area">
+                <form id="chatForm" class="d-flex">
+                    <input type="text" id="userInput" class="form-control me-2" placeholder="Digite sua pergunta..." autocomplete="off" required>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-send-fill"></i>
+                        <span class="spinner-border spinner-border-sm d-none ms-1" role="status" aria-hidden="true" id="loadingSpinner"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const chatBox = document.getElementById('chatBox');
+            const chatForm = document.getElementById('chatForm');
+            const userInput = document.getElementById('userInput');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const sendButtonIcon = chatForm.querySelector('button i');
+
+            /**
+             * Adiciona uma mensagem ao chat.
+             * @param {string} content O conteúdo da mensagem (texto ou Markdown)
+             * @param {'user' | 'bot'} type O tipo de remetente
+             */
+            function addMessage(content, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message', type === 'user' ? 'user-message' : 'bot-message');
+
+                if (type === 'user') {
+                    messageDiv.textContent = content;
+                } else {
+                    // Renderiza o Markdown da IA para HTML
+                    messageDiv.innerHTML = marked.parse(content, { gfm: true, breaks: true });
+                }
+
+                chatBox.appendChild(messageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }
+
+            // Lidar com o envio do formulário
+            chatForm.addEventListener('submit', async (event) => {
+                event.preventDefault();
+                const userMessage = userInput.value.trim();
+
+                if (userMessage) {
+                    addMessage(userMessage, 'user');
+                    userInput.value = '';
+                    userInput.disabled = true;
+                    loadingSpinner.classList.remove('d-none');
+                    sendButtonIcon.classList.add('d-none');
+
+                    try {
+                        const response = await fetch('/api/chatbot/chat', {
+                            method: 'POST',
+                            headers: {'Content-Type': 'application/json'},
+                            body: JSON.stringify({ message: userMessage })
+                        });
+
+                        const data = await response.json();
+                        const botResponse = data.response;
+
+                        if (!response.ok) {
+                             addMessage(`Erro: ${botResponse || response.statusText}`, 'bot');
+                        } else {
+                            addMessage(botResponse, 'bot');
+                        }
+
+                    } catch (error) {
+                        console.error('Erro ao enviar mensagem:', error);
+                        addMessage('Desculpe, ocorreu um erro de conexão. Tente novamente.', 'bot');
+                    } finally {
+                         userInput.disabled = false;
+                         loadingSpinner.classList.add('d-none');
+                         sendButtonIcon.classList.remove('d-none');
+                         userInput.focus();
+                    }
+                }
+            });
+
+            // Mensagem inicial (agora só é adicionada aqui)
+            addMessage("Olá! Como posso ajudar você hoje com as informações do Macro Measure?", 'bot');
+        });
+    </script>
+</section>
+</body>
+</html>

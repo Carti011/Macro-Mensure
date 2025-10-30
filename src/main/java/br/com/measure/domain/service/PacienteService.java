@@ -39,6 +39,17 @@ public class PacienteService {
         return toResponseDTO(paciente);
     }
 
+    /**
+     * Busca um paciente pelo CPF.
+     * @param cpf O CPF (já limpo de pontuações)
+     * @return um PacienteResponseDTO ou null se não for encontrado.
+     */
+    public PacienteResponseDTO findByCpf(String cpf) {
+        return repository.findByCpf(cpf)
+                .map(this::toResponseDTO)
+                .orElse(null);
+    }
+
     @Transactional
     public PacienteResponseDTO update(Long id, PacienteRequestDTO requestDTO) {
         Paciente pacienteExistente = repository.findById(id)

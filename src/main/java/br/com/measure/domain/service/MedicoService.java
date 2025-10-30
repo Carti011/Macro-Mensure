@@ -39,6 +39,17 @@ public class MedicoService {
         return toResponseDTO(medico);
     }
 
+    /**
+     * Busca um médico pelo CRM.
+     * @param crm O CRM
+     * @return um MedicoResponseDTO ou null se não for encontrado.
+     */
+    public MedicoResponseDTO findByCrm(String crm) {
+        return repository.findByCrm(crm)
+                .map(this::toResponseDTO)
+                .orElse(null);
+    }
+
     @Transactional
     public MedicoResponseDTO update(Long id, MedicoRequestDTO requestDTO) {
         Medico medicoExistente = repository.findById(id)
